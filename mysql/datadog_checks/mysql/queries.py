@@ -104,6 +104,7 @@ WHERE table_schema = %s AND table_name IN ({});
 SQL_INDEXES = """\
 SELECT
     table_name,
+    index_schema,
     index_name as `name`,
     collation,
     index_type,
@@ -115,7 +116,7 @@ SELECT
     group_concat(non_unique order by seq_in_index asc) as non_uniques
 FROM INFORMATION_SCHEMA.STATISTICS
 WHERE table_schema = %s AND table_name IN ({})
-GROUP BY table_name, index_name, collation, index_type;
+GROUP BY table_name, index_schema, index_name, collation, index_type;
 """
 
 SQL_FOREIGN_KEYS = """\
